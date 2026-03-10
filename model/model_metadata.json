@@ -1,0 +1,77 @@
+{
+    "project": "EstateIQ \u2014 House Price Prediction",
+    "version": "20260304_191734",
+    "created_at": "2026-03-04 19:17:34.976588",
+    "algorithm": "XGBoost Regressor",
+    "best_params": {
+        "learning_rate": 0.05,
+        "max_depth": 3,
+        "n_estimators": 300,
+        "subsample": 0.7
+    },
+    "training_samples": 1168,
+    "test_samples": 292,
+    "feature_count": 31,
+    "features_used": [
+        "GrLivArea",
+        "BedroomAbvGr",
+        "FullBath",
+        "GarageCars",
+        "TotalBsmtSF",
+        "OverallQual",
+        "HouseAge",
+        "Neighborhood_Blueste",
+        "Neighborhood_BrDale",
+        "Neighborhood_BrkSide",
+        "Neighborhood_ClearCr",
+        "Neighborhood_CollgCr",
+        "Neighborhood_Crawfor",
+        "Neighborhood_Edwards",
+        "Neighborhood_Gilbert",
+        "Neighborhood_IDOTRR",
+        "Neighborhood_MeadowV",
+        "Neighborhood_Mitchel",
+        "Neighborhood_NAmes",
+        "Neighborhood_NPkVill",
+        "Neighborhood_NWAmes",
+        "Neighborhood_NoRidge",
+        "Neighborhood_NridgHt",
+        "Neighborhood_OldTown",
+        "Neighborhood_SWISU",
+        "Neighborhood_Sawyer",
+        "Neighborhood_SawyerW",
+        "Neighborhood_Somerst",
+        "Neighborhood_StoneBr",
+        "Neighborhood_Timber",
+        "Neighborhood_Veenker"
+    ],
+    "target_variable": "SalePrice (log1p transformed)",
+    "metrics": {
+        "r2_score": 0.9006,
+        "adjusted_r2": 0.8887,
+        "mae": 18042.84,
+        "rmse": 27618.38,
+        "mape_percent": 11.14,
+        "within_10pct": 62.33
+    },
+    "preprocessing": {
+        "scaler": "StandardScaler",
+        "encoding": "One-Hot Encoding on Neighborhood",
+        "target_transform": "log1p (reversed with expm1 at prediction)",
+        "missing_strategy": "Median for numerical, Mode for categorical",
+        "feature_engineering": "HouseAge = CurrentYear - YearBuilt"
+    },
+    "files": {
+        "model": "house_price_model.pkl",
+        "scaler": "scaler.pkl",
+        "columns": "feature_columns.json",
+        "metadata": "model_metadata.json"
+    },
+    "deployment": {
+        "framework": "FastAPI",
+        "frontend": "Streamlit",
+        "predict_url": "POST http://localhost:8000/predict",
+        "input_format": "JSON with feature keys",
+        "output_format": "JSON with predicted_price, low_estimate, high_estimate"
+    }
+}
